@@ -94,7 +94,6 @@ $path = $_GET['path'];
 
                 <?php 
 
-
                 
                 if($path === 'add-quote'){
                     include 'add-quote.php';

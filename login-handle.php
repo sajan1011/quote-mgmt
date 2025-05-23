@@ -1,38 +1,43 @@
-<?php
-session_start();
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+<?php
+
+
+if($_SERVER['REQUEST_METHOD'] != 'POST'){
     header('Location: login.php');
     exit();
 }
 
-$user_email = $_POST['email'] ?? '';
-$user_password = $_POST['password'] ?? '';
 
-// Connect to database
-$conn = mysqli_connect("localhost", "root", "", "quote_mgmt", 3306);
+$user_email = $_POST['email'];
+$user_password = $_POST['password'];
 
-if (!$conn) {
-    
-    header("Location: login.php?error=Database connection failed");
-    exit();
-}
+ 
+include 'db-conn.php';
 
-// Prepare and execute query
+// 1. query
+// 2. prepare query
+// 3. bind parameters
+// 4. execute
+// 5. get result
+// 6. fetch assoc
+
+
+// mysqli procedural approach
 $query = "SELECT * FROM user WHERE email=? AND password=?";
-$stmt = mysqli_prepare($conn, $query);
-mysqli_stmt_bind_param($stmt, 'ss', $user_email, $user_password);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
+$mysql_stmt =  mysqli_prepare($conn,  $query);
+mysqli_stmt_bind_param($mysql_stmt,'ss', $user_email, $user_password);
+mysqli_stmt_execute($mysql_stmt);
+$mysql_result=  mysqli_stmt_get_result($mysql_stmt);
 
-$data = mysqli_fetch_assoc($result);
+$data =  mysqli_fetch_assoc($mysql_result);
 
-if ($data) {
+
+
+if($data) {
+
+    session_start();
     $_SESSION['is_loggedin'] = true;
     header("Location: dashboard.php");
-    exit();
 } else {
-    header("Location: login.php?error=Email or password incorrect");
-    exit();
+    header("Location: login.php?error=email or password incorrect");
 }
-?>
