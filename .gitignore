@@ -1,0 +1,26 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore environment files
+.env
+
+# Ignore vendor & dependencies (if using Composer)
+vendor/
+
+# Ignore node_modules if using frontend packages
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore IDE folders
+.vscode/
+.idea/
+
+# Ignore database dumps
+*.sql
+
+# Ignore uploads or temporary folders (optional)
+uploads/
+temp/
