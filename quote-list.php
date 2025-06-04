@@ -33,7 +33,9 @@ echo '</pre>';
             </tr>
         </thead>
         <tbody>
-            <?php for ($j = 0; $j < count($datas); $j++): 
+            <?php
+            if (count($datas) >0):
+            for ($j = 0; $j < count($datas); $j++): 
                 $item = $datas[$j]; ?>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                     <td class="px-6 py-4"><?php echo $j + 1; ?></td>
@@ -43,7 +45,12 @@ echo '</pre>';
                     <td class="px-6 py-4"><?php echo $item['author_name']; ?></td>
                     <td class="px-6 py-4"><?php echo $item['created_at']; ?></td> 
                 </tr>
-            <?php endfor; ?>
+            <?php endfor;
+            else: ?>
+            <tr> 
+                <td>No Quote Availiable</td>
+            </tr>
+            <?php endif;?>
         </tbody>
     </table>
 </div>
